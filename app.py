@@ -32,7 +32,7 @@ if prompt := st.chat_input("Nhập yêu cầu, kịch bản, câu hỏi..."):
 
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel("gemini-1.5-flash-latest")
             response = model.generate_content(prompt)
             reply = response.text
 
