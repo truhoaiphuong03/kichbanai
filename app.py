@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 
 st.set_page_config(page_title="Trợ Lý Gemini", page_icon="🤖", layout="wide")
 st.title("🤖 Trợ Lý Gemini Riêng")
@@ -31,9 +31,11 @@ if prompt := st.chat_input("Nhập yêu cầu, kịch bản, câu hỏi..."):
             st.markdown(prompt)
 
         try:
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash-latest")
-            response = model.generate_content(prompt)
+            client = genai.Client(api_key=api_key)
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+            )
             reply = response.text
 
             with st.chat_message("assistant"):
